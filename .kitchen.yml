@@ -1,34 +1,70 @@
 driver:
   name: vagrant
- 
 platforms:
-  - name: bento/centos-7
   - name: ubuntu-16.04
-    driver_config:
-      provision_command:
-        - apt-get update && apt-get install -y locales && locale-gen en_US.UTF-8
 
 provisioner:
   salt_version: latest
   name: salt_solo
   formula: supervisor
   require_chef: false
+  dependencies:
+    - name: sun-java
+      path: vendor/sun-java-formula
+    - name: zookeeper
+      path: vendor/zookeeper-formula
   pillars-from-files:
     supervisor.sls: pillar.example
+    java.sls: vendor/sun-java-formula/pillar.example
+    zookeeper.sls: vendor/zookeeper-formula/pillar.example
   pillars:
     top.sls:
       base:
         '*':
            - supervisor
+           - java
+           - zookeeper
 
 suites:
-  - name: server
+  - name: node1
+    driver:
+      network:
+        - ["private_network", {ip: "10.0.0.1"}]
     provisioner:
       state_top:
         base:
           '*':
             - supervisor
-
+            - sun-java
+            - sun-java.env
+            - zookeeper
+            - zookeeper.server
+  - name: node2
+    driver:
+      network:
+        - ["private_network", {ip: "10.0.0.2"}]
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - supervisor
+            - sun-java
+            - sun-java.env
+            - zookeeper
+            - zookeeper.server
+  - name: node3
+    driver:
+      network:
+        - ["private_network", {ip: "10.0.0.3"}]
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - supervisor
+            - sun-java
+            - sun-java.env
+            - zookeeper
+            - zookeeper.server
 verifier:
   name: shell
   command: testinfra -vvv --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
