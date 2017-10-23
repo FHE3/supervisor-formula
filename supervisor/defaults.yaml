@@ -18,4 +18,3 @@ supervisor:
     supervisorctl:
       serverurl: unix:///var/run/supervisor.sock
     
-     

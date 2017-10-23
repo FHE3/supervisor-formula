@@ -3,13 +3,15 @@
 {% set os_family_map = salt['grains.filter_by']({
   'Debian': {
       "pkg": 'supervisor',
+      "service": 'supervisor',
       "config": '/etc/supervisor.conf',
       "config_path": '/etc/supervisor/conf.d',
   },
   'RedHat': {
       "pkg": 'supervisor',
+      "service": 'supervisord',
       "config": '/etc/supervisord.conf',
-      "config_path": '/etc/supervisord.d",
+      "config_path": '/etc/supervisord.d',
   },
 }, grain="os_family" , merge=salt['pillar.get']('supervisor:lookup')) %}
 

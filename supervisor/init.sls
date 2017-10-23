@@ -4,3 +4,4 @@
 include:
   - supervisor.install
   - supervisor.config
+  - supervisor.service
