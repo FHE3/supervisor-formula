@@ -1,9 +1,9 @@
 {%- from "supervisor/map.jinja" import supervisor with context -%}
 
 
-{%- for keys in supervisor.service %}
+{%- for keys in supervisor.programs %}
 [{{ keys }}]
-   {%- for key, val in supervisor.service[keys].items() %}
+   {%- for key, val in supervisor.programs[keys].items() %}
 {{ key }}={{ val }}
    {%- endfor %}
 {% endfor %}
