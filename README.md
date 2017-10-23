@@ -6,8 +6,29 @@ Formula to set up and configure a supervisor.
 Sample Pillars
 ==============
 
-Configure Zookeeper Service
+Configure Supervisor
 
+    supervisor:
+      conf:
+        unix_http_server:
+          file: /var/run/supervisor.sock
+          chmod: "0700"
+          rpcinterface:supervisor: supervisor.rpcinterface_factory: supervisor.rpcinterface:make_main_rpcinterface
+        supervisord:
+          http_port: /var/tmp/supervisor.sock
+          logfile: /var/log/supervisor/supervisord.log
+          logfile_maxbytes: 50MB
+          logfile_backups: 10
+          loglevel: info
+          pidfile: /var/run/supervisord.pid
+          nodaemon: false
+          minfds: 65535
+          minprocs: 200
+        supervisorctl:
+          serverurl: unix:///var/run/supervisor.sock
+
+
+Configure Zookeeper as Supervisor Managed Service
 
     supervisor:
       programs:
