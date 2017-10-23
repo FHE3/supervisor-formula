@@ -4,10 +4,12 @@
   'Debian': {
       "pkg": 'supervisor',
       "config": '/etc/supervisor.conf',
+      "config_path": '/etc/supervisor/conf.d',
   },
   'RedHat': {
       "pkg": 'supervisor',
       "config": '/etc/supervisord.conf',
+      "config_path": '/etc/supervisord.d",
   },
 }, grain="os_family" , merge=salt['pillar.get']('supervisor:lookup')) %}
 
