@@ -1,0 +1,10 @@
+supervisor:
+  conf:
+    unix_http_server:
+      file: "/var/run/supervisor.sock"
+      chmod: "0700"
+    supervisord:
+      http_port: "/var/tmp/supervisor.sock"
+    supervisorctl:
+      serverurl: "unix:///var/run/supervisor.sock"
+     

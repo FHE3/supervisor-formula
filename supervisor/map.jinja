@@ -1,0 +1,22 @@
+{% import_yaml 'supervisor/defaults.yaml' as default_supervisor %}
+
+{% set os_family_map = salt['grains.filter_by']({
+  'Debian': {
+      "pkg": 'supervisor',
+      "config": '/etc/supervisor.conf',
+  },
+  'RedHat': {
+      "pkg": 'supervisor',
+      "config": '/etc/supervisord.conf',
+  },
+}, grain="os_family" , merge=salt['pillar.get']('supervisor:lookup')) %}
+
+{% do default_supervisor.supervisor.update(os_family_map) %}
+
+{% set supervisor = salt['pillar.get'](
+        'supervisor',
+        default=default_supervisor.supervisor,
+        merge=True
+    )
+%}
+
