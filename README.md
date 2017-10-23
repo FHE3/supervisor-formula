@@ -1,6 +1,6 @@
 supervisor-formula
 ==========================
-
+Formula to set up and configure a supervisor.
 
 
 Sample Pillars
@@ -24,6 +24,17 @@ Configure Zookeeper Service
           logfile_maxbytes: 100MB
           logfile_backups: 10
           stdout_logfile: /var/log/supervisor/supervisor-zookeeper.log
+
+Available states
+================
+
+```zookeeper```
+
+```zookeeper.config```
+
+```zookeeper.install```
+
+```zookeeper.service```
 
 Official Documentation
 ======================
