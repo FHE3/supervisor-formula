@@ -1,0 +1,11 @@
+{%- from "supervisor/map.jinja" import supervisor with context -%}
+
+
+{%- for keys in supervisor.service %}
+[{{ keys }}]
+   {%- for key, val in supervisor.service[keys].items() %}
+{{ key }}={{ val }}
+   {%- endfor %}
+{% endfor %}
+
+
