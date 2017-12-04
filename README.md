@@ -49,15 +49,16 @@ Configure Zookeeper as Supervisor Managed Service
 Available states
 ================
 
-```zookeeper```
+```supervisor```
 
-```zookeeper.config```
+```supervisor.config```
 
-```zookeeper.install```
+```supervisor.install```
 
-```zookeeper.service```
+```supervisor.service```
 
 Official Documentation
 ======================
 
 * http://supervisord.org/
+
