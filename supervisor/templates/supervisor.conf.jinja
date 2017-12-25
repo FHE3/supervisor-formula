@@ -11,10 +11,12 @@
 [include]
 files = {{ supervisor.config_path }}/*.conf
 
+{%- if supervisor.programs is defined %}
 {% for keys in supervisor.programs %}
 [program:{{ keys }}]
    {%- for key, val in supervisor.programs[keys].items() %}
 {{ key }}={{ val }}
    {%- endfor %}
 {% endfor %}
+{% endif %}
 
