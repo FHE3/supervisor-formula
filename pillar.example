@@ -1,8 +1,8 @@
 supervisor:
   programs:
     zookeeper:
-      command: /usr/lib/zookeeper/bin/zkServer.sh start-foreground
-      user: zookeeper
+      command: /opt/zookeeper/bin/zkServer.sh start-foreground
+      user: appmgr
       autostart: true
       autorestart: true
       startsecs: 10
@@ -13,5 +13,19 @@ supervisor:
       logfile_maxbytes: 100MB
       logfile_backups: 10
       stdout_logfile: /var/log/supervisor/supervisor-zookeeper.log
-
-    
+#    kafka:
+#      command: /opt/kafka/bin/kafka-server-start.sh /opt/kafka/config/server.properties
+#      directory: /opt/kafka
+#      user: kafka
+#      autostart: true
+#      autorestart: true
+#      startsecs: 10
+#      startretries: 999
+#      log_stdout: true
+#      log_stderr: true
+#      logfile: /var/log/kafka/kafka.log
+#      logfile_maxbytes: 100MB
+#      logfile_backups: 10
+#      stdout_logfile: /var/log/supervisor/supervisor-kafka.log
+#
+#    

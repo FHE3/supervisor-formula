@@ -2,6 +2,9 @@ driver:
   name: vagrant
 platforms:
   - name: ubuntu-16.04
+    customize:
+      cpus: 2
+      memory: 1024
 
 provisioner:
   salt_version: latest
@@ -13,10 +16,13 @@ provisioner:
       path: vendor/sun-java-formula
     - name: zookeeper
       path: vendor/zookeeper-formula
+#    - name: kafka
+#      path: vendor/kafka-formula
   pillars-from-files:
     supervisor.sls: pillar.example
     java.sls: vendor/sun-java-formula/pillar.example
     zookeeper.sls: vendor/zookeeper-formula/pillar.example
+#    kafka.sls: vendor/kafka-formula/pillar.example
   pillars:
     top.sls:
       base:
@@ -24,22 +30,10 @@ provisioner:
            - supervisor
            - java
            - zookeeper
+#           - kafka
 
 suites:
-  - name: node1
-    driver:
-      network:
-        - ["private_network", {ip: "10.0.0.1"}]
-    provisioner:
-      state_top:
-        base:
-          '*':
-            - supervisor
-            - sun-java
-            - sun-java.env
-            - zookeeper
-            - zookeeper.server
-  - name: node2
+  - name: node-1
     driver:
       network:
         - ["private_network", {ip: "10.0.0.2"}]
@@ -52,7 +46,8 @@ suites:
             - sun-java.env
             - zookeeper
             - zookeeper.server
-  - name: node3
+#            - kafka
+  - name: node-2
     driver:
       network:
         - ["private_network", {ip: "10.0.0.3"}]
@@ -65,6 +60,21 @@ suites:
             - sun-java.env
             - zookeeper
             - zookeeper.server
+#            - kafka
+  - name: node-3
+    driver:
+      network:
+        - ["private_network", {ip: "10.0.0.4"}]
+    provisioner:
+      state_top:
+        base:
+          '*':
+            - supervisor
+            - sun-java
+            - sun-java.env
+            - zookeeper
+            - zookeeper.server
+#            - kafka
 verifier:
   name: shell
   command: testinfra -vvv --junit-xml junit-$KITCHEN_INSTANCE.xml test/integration/$KITCHEN_SUITE
