@@ -1,4 +1,5 @@
 supervisor:
+  restart_on_change: True
   programs:
     zookeeper:
       command: /opt/zookeeper/bin/zkServer.sh start-foreground
