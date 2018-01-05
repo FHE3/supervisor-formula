@@ -9,6 +9,7 @@ Sample Pillars
 Configure Supervisor
 
     supervisor:
+      restart_on_change: True
       conf:
         unix_http_server:
           file: /var/run/supervisor.sock
